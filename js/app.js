@@ -11,7 +11,24 @@ const App = React.createClass({
 const Editor = React.createClass({
     render: function () {
         return <div>
-            Editor
+            <Left />
+            <Right />
+        </div>
+    }
+});
+
+const Left = React.createClass({
+    render: function () {
+        return <div>
+            Left
+        </div>
+    }
+});
+
+const Right = React.createClass({
+    render: function () {
+        return <div>
+            Right
         </div>
     }
 });
