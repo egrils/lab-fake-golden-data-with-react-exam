@@ -1,8 +1,12 @@
 const App = React.createClass({
     getInitialState: function () {
         return {
+            isEditor: true,
             elements: []
         }
+    },
+    toggle: function () {
+        this.setState({isEditor: !this.state.isEditor})
     },
     addElement: function (element) {
         const elements = this.state.elements;
@@ -15,10 +19,15 @@ const App = React.createClass({
         this.setState({elements})
     },
     render: function () {
+        const isEditor = this.state.isEditor;
         return <div>
-            <button>preview</button>
-            <Editor elements={this.state.elements} onAdd={this.addElement} onDelete={this.deleteElement}/>
-            <Previewer elements={this.state.elements}/>
+            <button onClick={this.toggle}>{isEditor ? "Preview" : "Edit"}</button>
+            <div className={isEditor ? "" : "hidden"}>
+                <Editor elements={this.state.elements} onAdd={this.addElement} onDelete={this.deleteElement}/>
+            </div>
+            <div className={isEditor ? "hidden" : ""}>
+                <Previewer elements={this.state.elements}/>
+            </div>
         </div>
     }
 });
