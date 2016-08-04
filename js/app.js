@@ -21,7 +21,7 @@ const App = React.createClass({
 const Editor = React.createClass({
     render: function () {
         return <div>
-            <Left />
+            <Left elements={this.props.elements}/>
             <Right onAdd={this.props.onAdd}/>
         </div>
     }
@@ -29,8 +29,14 @@ const Editor = React.createClass({
 
 const Left = React.createClass({
     render: function () {
+        const elements = this.props.elements.map((ele, index)=> {
+            return <div key={index}>
+                <input type={ele}/>
+                <button>-</button>
+            </div>
+        });
         return <div>
-            Left
+            {elements}
         </div>
     }
 });
