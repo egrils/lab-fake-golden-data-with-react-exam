@@ -18,7 +18,7 @@ const App = React.createClass({
         return <div>
             <button>Preview</button>
             <Editor elements={this.state.elements} onAdd={this.addElement} onDelete={this.deleteElement}/>
-            <Previewer />
+            <Previewer elements={this.state.elements}/>
         </div>
     }
 });
@@ -65,8 +65,14 @@ const Right = React.createClass({
 
 const Previewer = React.createClass({
     render: function () {
+        const elements = this.props.elements.map((ele, index)=> {
+            return <div key={index}>
+                <input type={ele}/>
+            </div>
+        });
         return <div>
-            Previewer
+            {elements}
+            <button>Submit</button>
         </div>
     }
 });
