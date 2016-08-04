@@ -1,17 +1,34 @@
 const App = React.createClass({
     render: function () {
         return <div>
-                <button>preview</button>
+            <button>preview</button>
             <Editor />
             <Previewer />
-            </div>
+        </div>
     }
 });
 
 const Editor = React.createClass({
     render: function () {
         return <div>
-                Editor
+            <Left />
+            <Right />
+        </div>
+    }
+});
+
+const Left = React.createClass({
+    render: function () {
+        return <div>
+                Left
+            </div>
+    }
+});
+
+const Right = React.createClass({
+    render: function () {
+        return <div>
+                Right
             </div>
     }
 });
@@ -19,8 +36,8 @@ const Editor = React.createClass({
 const Previewer = React.createClass({
     render: function () {
         return <div>
-                Previewer
-            </div>
+            Previewer
+        </div>
     }
 });
 
