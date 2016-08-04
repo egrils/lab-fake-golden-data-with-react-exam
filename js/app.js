@@ -1,8 +1,26 @@
 const App = React.createClass({
     render: function () {
         return <div>
-                App
-            </div>
+            <button>Preview</button>
+            <Editor />
+            <Previewer />
+        </div>
+    }
+});
+
+const Editor = React.createClass({
+    render: function () {
+        return <div>
+            Editor
+        </div>
+    }
+});
+
+const Previewer = React.createClass({
+    render: function () {
+        return <div>
+            Previewer
+        </div>
     }
 });
 
