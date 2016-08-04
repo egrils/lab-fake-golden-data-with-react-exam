@@ -1,8 +1,18 @@
 const App = React.createClass({
+    getInitialState: function () {
+        return {
+            elements: []
+        }
+    },
+    addElement: function (element) {
+        const elements = this.state.elements;
+        elements.push(element);
+        this.setState({elements})
+    },
     render: function () {
         return <div>
             <button>Preview</button>
-            <Editor />
+            <Editor elements={this.state.elements} onAdd={this.addElement}/>
             <Previewer />
         </div>
     }
@@ -12,7 +22,7 @@ const Editor = React.createClass({
     render: function () {
         return <div>
             <Left />
-            <Right />
+            <Right onAdd={this.props.onAdd}/>
         </div>
     }
 });
@@ -26,11 +36,16 @@ const Left = React.createClass({
 });
 
 const Right = React.createClass({
+    add: function () {
+        const element = $("input[name=element]:checked").val();
+        this.props.onAdd(element)
+    }
+    ,
     render: function () {
         return <div>
             <input type="radio" name="element" value="text"/>Text
             <input type="radio" name="element" value="date"/>Date
-            <button>+</button>
+            <button onClick={this.add}>+</button>
         </div>
     }
 });
