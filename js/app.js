@@ -23,13 +23,16 @@ const App = React.createClass({
     render: function () {
         const isEditor = this.state.isEditor;
         return <div className="container-fluid">
-            <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5" onClick={this.toggle}>{isEditor ? "Preview" : "Edit"}</button>
-            <div className={isEditor ? "" : "hidden"}>
-                <Editor elements={this.state.elements} onAdd={this.addElement} onDelete={this.deleteElement}/>
-            </div>
-            <div className={isEditor ? "hidden" : ""}>
-                <Previewer elements={this.state.elements}/>
-            </div>
+            <ReactRouter.Link to={this.state.isEditor? "/previewer" : "/"}>
+                <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5" onClick={this.toggle}>
+                    {this.state.isEditor? "Preview":"Edit" }
+                </button>
+            </ReactRouter.Link>
+            {this.props.children && React.cloneElement(this.props.children, {
+                elements:this.state.elements,
+                onAdd:this.addElement,
+                onDelete:this.deleteElement
+            })}
         </div>
     }
 });
@@ -68,10 +71,10 @@ const Right = React.createClass({
     render: function () {
         return <div className="right col-md-offset-8">
             <div className="radio">
-                <input type="radio" name="element" value="text"/><span class="label">Text</span>
+                <input type="radio" name="element" value="text"/><span>Text</span>
             </div>
             <div className="radio">
-                <input type="radio" name="element" value="date"/><span class="label">Date</span>
+                <input type="radio" name="element" value="date"/><span>Date</span>
             </div>
             <button className="add btn btn-default btn-lg" onClick={this.add}>+</button>
         </div>
@@ -92,4 +95,11 @@ const Previewer = React.createClass({
     }
 });
 
-ReactDOM.render(<App />, document.getElementById('content'));
+ReactDOM.render(
+    <ReactRouter.Router>
+        <ReactRouter.Route path="/" component={App}>
+            <ReactRouter.IndexRoute component={Editor}/>
+            <ReactRouter.Route path="/previewer" component={Previewer}/>
+        </ReactRouter.Route>
+    </ReactRouter.Router>
+, document.getElementById('content'));
