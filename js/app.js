@@ -22,8 +22,8 @@ const App = React.createClass({
     },
     render: function () {
         const isEditor = this.state.isEditor;
-        return <div>
-            <button onClick={this.toggle}>{isEditor ? "Preview" : "Edit"}</button>
+        return <div className="container-fluid">
+            <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5" onClick={this.toggle}>{isEditor ? "Preview" : "Edit"}</button>
             <div className={isEditor ? "" : "hidden"}>
                 <Editor elements={this.state.elements} onAdd={this.addElement} onDelete={this.deleteElement}/>
             </div>
@@ -49,9 +49,9 @@ const Left = React.createClass({
     },
     render: function () {
         const elements = this.props.elements.map((ele, index)=> {
-            return <div key={index}>
-                <input type={ele}/>
-                <button onClick={this.remove.bind(this, index)}>-</button>
+            return <div key={index} className="left col-md-8 col-md-offset-3 btn-lg">
+                <input className="col-md-4" type={ele}/>
+                <button className="btn btn-danger" onClick={this.remove.bind(this, index)}>X</button>
             </div>
         });
         return <div>
@@ -66,10 +66,14 @@ const Right = React.createClass({
         this.props.onAdd(element)
     },
     render: function () {
-        return <div>
-            <input type="radio" name="element" value="text"/>Text
-            <input type="radio" name="element" value="date"/>Date
-            <button onClick={this.add}>+</button>
+        return <div className="right col-md-offset-8">
+            <div className="radio">
+                <input type="radio" name="element" value="text"/><span class="label">Text</span>
+            </div>
+            <div className="radio">
+                <input type="radio" name="element" value="date"/><span class="label">Date</span>
+            </div>
+            <button className="add btn btn-default btn-lg" onClick={this.add}>+</button>
         </div>
     }
 });
@@ -77,13 +81,13 @@ const Right = React.createClass({
 const Previewer = React.createClass({
     render: function () {
         const elements = this.props.elements.map((ele, index)=> {
-            return <div key={index}>
-                <input type={ele}/>
+            return <div key={index} className="col-md-8 col-md-offset-4 btn-lg">
+                <input type={ele} className="col-md-4 box-shadow"/>
             </div>
         });
         return <div>
             {elements}
-            <button>Submit</button>
+            <button className="btn btn-default btn-lg col-md-1 col-md-offset-5">Submit</button>
         </div>
     }
 });

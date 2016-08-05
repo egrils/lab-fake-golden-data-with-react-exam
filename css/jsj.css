@@ -1,0 +1,15 @@
+#pd{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.radio{
+    display: block;
+}
+.right{
+    position:absolute;
+    top:120px;
+    display: block;
+}
+.add{
+    margin-top: 20px;
+}
