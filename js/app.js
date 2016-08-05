@@ -3,7 +3,7 @@ const App = React.createClass({
         return {
             isEditor: true,
             elements: []
-        }
+        };
     },
     toggle: function () {
         this.setState({
