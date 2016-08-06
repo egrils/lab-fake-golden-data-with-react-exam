@@ -1,14 +1,8 @@
 const App = React.createClass({
     getInitialState: function () {
         return {
-            isEditor: true,
             elements: []
         };
-    },
-    toggle: function () {
-        this.setState({
-            isEditor: !this.state.isEditor
-        })
     },
     addElement: function (element) {
         const elements = this.state.elements;
@@ -23,12 +17,7 @@ const App = React.createClass({
     render: function () {
         const isEditor = this.state.isEditor;
         return <div className="container-fluid">
-            <ReactRouter.Link to={this.state.isEditor? "/previewer" : "/"}>
-                <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5" onClick={this.toggle}>
-                    {this.state.isEditor? "Preview":"Edit" }
-                </button>
-            </ReactRouter.Link>
-            {this.props.children && React.cloneElement(this.props.children, {
+             {this.props.children && React.cloneElement(this.props.children, {
                 elements:this.state.elements,
                 onAdd:this.addElement,
                 onDelete:this.deleteElement
@@ -40,6 +29,11 @@ const App = React.createClass({
 const Editor = React.createClass({
     render: function () {
         return <div>
+            <ReactRouter.Link to="/previewer">
+                <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5" >
+                    Preview
+                </button>
+            </ReactRouter.Link>
             <Left elements={this.props.elements} onDelete={this.props.onDelete}/>
             <Right onAdd={this.props.onAdd}/>
         </div>
@@ -89,6 +83,11 @@ const Previewer = React.createClass({
             </div>
         });
         return <div>
+            <ReactRouter.Link to="/">
+                <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5" >
+                    Edit
+                </button>
+            </ReactRouter.Link>
             {elements}
             <button className="btn btn-default btn-lg col-md-1 col-md-offset-5">Submit</button>
         </div>
