@@ -4,6 +4,22 @@ const App = React.createClass({
             elements: []
         };
     },
+    componentDidMount: function () {
+        $.get("./", (result)=> {
+            if (this.isMounted()) {
+                console.log("mounted");
+            }
+            console.log(this);
+            console.log(result);
+        });
+    }, /*    componentDidMount: function() {
+     $.get("./", function() {
+     if (this.isMounted()) {
+     console.log("mounted");
+     }
+     console.log(this);
+     }.bind(this));
+     },*/
     addElement: function (element) {
         const elements = this.state.elements;
         elements.push(element);
@@ -17,10 +33,10 @@ const App = React.createClass({
     render: function () {
         const isEditor = this.state.isEditor;
         return <div className="container-fluid">
-             {this.props.children && React.cloneElement(this.props.children, {
-                elements:this.state.elements,
-                onAdd:this.addElement,
-                onDelete:this.deleteElement
+            {this.props.children && React.cloneElement(this.props.children, {
+                elements: this.state.elements,
+                onAdd: this.addElement,
+                onDelete: this.deleteElement
             })}
         </div>
     }
@@ -30,7 +46,7 @@ const Editor = React.createClass({
     render: function () {
         return <div>
             <ReactRouter.Link to="/previewer">
-                <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5" >
+                <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5">
                     Preview
                 </button>
             </ReactRouter.Link>
@@ -84,7 +100,7 @@ const Previewer = React.createClass({
         });
         return <div>
             <ReactRouter.Link to="/">
-                <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5" >
+                <button id="pd" className="btn btn-default btn-lg col-md-1 col-md-offset-5">
                     Edit
                 </button>
             </ReactRouter.Link>
@@ -101,4 +117,4 @@ ReactDOM.render(
             <ReactRouter.Route path="/previewer" component={Previewer}/>
         </ReactRouter.Route>
     </ReactRouter.Router>
-, document.getElementById('content'));
+    , document.getElementById('content'));
